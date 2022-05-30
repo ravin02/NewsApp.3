@@ -4,10 +4,12 @@ import at.ac.fhcampuswien.api.NewsApi;
 import at.ac.fhcampuswien.downloader.Downloader;
 import at.ac.fhcampuswien.enums.Country;
 import at.ac.fhcampuswien.enums.Endpoint;
+import at.ac.fhcampuswien.exceptions.NewsApiExceptions;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AppController {
     private List<Article> articles;
@@ -70,6 +72,19 @@ public class AppController {
             articles = response.getArticles();
             return response.getArticles();
         }
+        return new ArrayList<>();
+    }
+
+    public List<Article> getYourKeyword(String input) {
+
+        NewsApi api = new NewsApi(input, Endpoint.EVERYTHING);
+        NewsResponse response = api.requestData();
+
+        if(response != null) {
+            articles = response.getArticles();
+            return response.getArticles();
+        }
+
         return new ArrayList<>();
     }
 

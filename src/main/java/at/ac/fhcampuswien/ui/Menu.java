@@ -1,11 +1,14 @@
 package at.ac.fhcampuswien.ui;
 
+import at.ac.fhcampuswien.App;
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.downloader.ParallelDownloader;
 import at.ac.fhcampuswien.downloader.SequentialDownloader;
 import at.ac.fhcampuswien.exceptions.NewsApiExceptions;
 import at.ac.fhcampuswien.models.Article;
+import at.ac.fhcampuswien.models.NewsResponse;
 
+import java.lang.reflect.AccessibleObject;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,11 +38,28 @@ public class Menu {
                 case "y" -> getArticleCount(controller);
                 case "q" -> printExitMessage();
                 case "h" -> downloadURLs();
+                case "i" -> getYourKeyword(controller);
                 default -> printInvalidInputMessage();
             }
 
         }catch(NewsApiExceptions e){
             System.out.println(e.getMessage());
+        }
+
+    }
+
+
+    private void getYourKeyword(AppController controller) throws NewsApiExceptions{
+
+        System.out.println("Choose your keyword!");
+        String input;
+        Scanner scanner = new Scanner(System.in);
+        input = scanner.next();
+
+        try {
+            System.out.println(controller.getYourKeyword(input));
+        } catch (NullPointerException e){
+            System.out.println("There are no articles... Search for another keyword!");
         }
 
     }
@@ -56,28 +76,32 @@ public class Menu {
     }
 
     private void getArticleCount(AppController controller) throws NewsApiExceptions {
-        if(controller.getArticles() == null) {
-            throw new NewsApiExceptions("There are no articles yet! Search for some!");
-        }else
-        System.out.println("Number of articles: " + controller.getArticleCount());
+
+       try{
+           System.out.println("Number of articles: " + controller.getArticleCount());
+       }catch (NullPointerException e){
+           System.out.println("There are no articles!");
+       }
+
     }
 
     private void getTopHeadlinesAustria(AppController controller) throws NewsApiExceptions{
 
-        if(controller.getTopHeadlinesAustria() == null) {
-            throw new NewsApiExceptions("There are no Top-headlines in Austria");
+        try {
+            System.out.println(controller.getTopHeadlinesAustria());
+        } catch (NullPointerException e){
+            System.out.println("There are no top headlines in Austria!");
         }
 
-        List<Article> articleList = controller.getTopHeadlinesAustria();
-
-        for( Article a : articleList) {
-            System.out.println(a);
-        }
     }
 
-    private void getAllNewsBitcoin(AppController controller)  {
+    private void getAllNewsBitcoin(AppController controller) throws NewsApiExceptions  {
+        try{
+            System.out.println(controller.getAllNewsBitcoin());
+        }catch(NullPointerException e){
+            System.out.println("There are no bitcoin news!");
+        }
 
-        System.out.println(controller.getAllNewsBitcoin());
     }
 
     public static void printExitMessage(){
@@ -97,13 +121,8 @@ public class Menu {
                 a: Get top headlines austria
                 b: Get all news about bitcoin
                 y: Get article count
+                i: Search for articles via keyword!
                 q: Quit program
-                c: Get provider with most articles
-                d: Get longest author name
-                e: Count articles from NY Times
-                f: Get articles with short title
-                g: Sort articles by content length
-                h: Download URLs
                 """;
     }
 

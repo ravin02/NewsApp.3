@@ -92,6 +92,7 @@ public class NewsApi {
         this.endpoint = endpoint;
     }
 
+
     public NewsApi(String q, Country country, Endpoint endpoint){
         this.client = new OkHttpClient();
         this.q = q;
@@ -99,7 +100,7 @@ public class NewsApi {
         this.endpoint = endpoint;
     }
 
-    public NewsApi(String q, String qInTitle, Country sourceCountry, Category sourceCategory, String domains, String excludeDomains, String from, String to, Language language, SortBy sortBy, String pageSize, String page, Endpoint endpoint) {
+    public NewsApi(String q, String qInTitle, Country sourceCountry, Category sourceCategory, String domains, String excludeDomains, String from, String to, Language language, SortBy sortBy, String pageSize, String page, Endpoint endpoint, OkHttpClient client) {
         this(q, endpoint);
         this.qInTitle = qInTitle;
         this.sourceCountry = sourceCountry;
