@@ -35,6 +35,8 @@ public class Menu {
                 case "y" -> getArticleCount(controller);
                 case "q" -> printExitMessage();
                 case "h" -> downloadURLs();
+                case "e" -> getNewYorkTimesArticleCount(controller);
+                case "f" -> printArticlesUnder15(controller);
                 default -> printInvalidInputMessage();
             }
 
@@ -78,6 +80,13 @@ public class Menu {
     private void getAllNewsBitcoin(AppController controller)  {
 
         System.out.println(controller.getAllNewsBitcoin());
+    }
+
+    private void getNewYorkTimesArticleCount(AppController controller){
+        System.out.println(controller.getNewYorkTimesArticleCount());
+    }
+    private void printArticlesUnder15(AppController controller){
+        System.out.println(controller.printArticlesUnder15());
     }
 
     public static void printExitMessage(){

@@ -8,6 +8,7 @@ import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppController {
     private List<Article> articles;
@@ -57,6 +58,33 @@ public class AppController {
         return new ArrayList<>();
     }
 
+    public int getNewYorkTimesArticleCount() {
+        if (articles == null) {
+            return 0;
+        } else {
+            return (int) articles
+                    .stream()
+                    .filter(article -> article
+                            .getSource()
+                            .getName()
+                            .toLowerCase()
+                            .contains("new york times"))
+                    .count();
+        }
+    }
+
+    public List<Article> printArticlesUnder15() {
+        if (articles == null) {
+            return new ArrayList<>();
+        } else {
+            return articles
+                    .stream()
+                    .filter(article -> article
+                            .getTitle()
+                            .length() < 15).collect(Collectors.toList());
+        }
+
+    }
     /**
      * returns all articles that do contain "bitcoin"
      * in their title from newsapi
