@@ -172,9 +172,8 @@ public class NewsApi {
                 return null;
 
             }
-
         } catch (UnknownHostException ex){
-            Exception ex1 = new NewsApiExceptions("Something went wrong");
+            Exception ex1 = new NewsApiExceptions("Network is not working");
             System.out.println(ex1.getMessage());
             return null;
         } catch (IOException e) {
