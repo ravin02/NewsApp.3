@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.api;
 
 import at.ac.fhcampuswien.enums.*;
+import at.ac.fhcampuswien.exceptions.NewsApiExceptions;
 import at.ac.fhcampuswien.models.NewsResponse;
 import com.google.gson.Gson;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -9,6 +10,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 public class NewsApi {
@@ -168,10 +170,18 @@ public class NewsApi {
             } else {
                 System.err.println(this.getClass() + ": http status not ok");
                 return null;
+
             }
+
+        } catch (UnknownHostException ex){
+            Exception ex1 = new NewsApiExceptions("Something went wrong");
+            System.out.println(ex1.getMessage());
+            return null;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Exception ex = new NewsApiExceptions(e.getMessage());
+            System.out.println(ex.getMessage());
             return null;
         }
+
     }
 }

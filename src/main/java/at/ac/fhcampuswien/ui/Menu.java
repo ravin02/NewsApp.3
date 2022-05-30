@@ -3,6 +3,7 @@ package at.ac.fhcampuswien.ui;
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.downloader.ParallelDownloader;
 import at.ac.fhcampuswien.downloader.SequentialDownloader;
+import at.ac.fhcampuswien.exceptions.NewsApiExceptions;
 import at.ac.fhcampuswien.models.Article;
 
 import java.util.List;
@@ -26,14 +27,21 @@ public class Menu {
     }
 
     private void handleInput(String input){
-        switch (input) {
-            case "a" -> getTopHeadlinesAustria(controller);
-            case "b" -> getAllNewsBitcoin(controller);
-            case "y" -> getArticleCount(controller);
-            case "q" -> printExitMessage();
-            case "h" -> downloadURLs();
-            default -> printInvalidInputMessage();
+        try {
+            switch (input) {
+
+                case "a" -> getTopHeadlinesAustria(controller);
+                case "b" -> getAllNewsBitcoin(controller);
+                case "y" -> getArticleCount(controller);
+                case "q" -> printExitMessage();
+                case "h" -> downloadURLs();
+                default -> printInvalidInputMessage();
+            }
+
+        }catch(NewsApiExceptions e){
+            System.out.println(e.getMessage());
         }
+
     }
 
     // Method is needed for exercise 4 - ignore for exercise 2 solution
@@ -47,7 +55,10 @@ public class Menu {
         // TODO print time in ms it took to download URLs parallel
     }
 
-    private void getArticleCount(AppController controller) {
+    private void getArticleCount(AppController controller) throws NewsApiExceptions {
+        if(controller.getArticles() == null) {
+            throw new NewsApiExceptions("There are no articles");
+        }
         System.out.println("Number of articles: " + controller.getArticleCount());
     }
 
