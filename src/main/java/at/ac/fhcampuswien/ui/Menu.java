@@ -104,10 +104,17 @@ public class Menu {
     }
 
     private void printSourceMostArticles(AppController controller){
-        System.out.println(controller.printSourceMostArticles());
+
+            System.out.println(controller.printSourceMostArticles());
+
+
     }
-    private void printAuthorLongestName(AppController controller){
-        System.out.println(controller.printAuthorLongestName());
+    private void printAuthorLongestName(AppController controller)throws NewsApiExceptions{
+        try{
+            System.out.println(controller.printAuthorLongestName());
+        } catch(NullPointerException e){
+            System.out.println("Cannot print longest author name");
+        }
     }
 
     private void getNewYorkTimesArticleCount(AppController controller){
