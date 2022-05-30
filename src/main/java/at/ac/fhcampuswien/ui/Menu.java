@@ -62,7 +62,11 @@ public class Menu {
         System.out.println("Number of articles: " + controller.getArticleCount());
     }
 
-    private void getTopHeadlinesAustria(AppController controller) {
+    private void getTopHeadlinesAustria(AppController controller) throws NewsApiExceptions{
+
+        if(controller.getTopHeadlinesAustria() == null) {
+            throw new NewsApiExceptions("There are no Top-headlines in Austria");
+        }
 
         List<Article> articleList = controller.getTopHeadlinesAustria();
 
