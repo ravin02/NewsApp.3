@@ -35,9 +35,6 @@ public class Menu {
                 case "y" -> getArticleCount(controller);
                 case "q" -> printExitMessage();
                 case "h" -> downloadURLs();
-                case "c" -> printSourceMostArticles(controller);
-                case "d" -> printAuthorLongestName(controller);
-
                 default -> printInvalidInputMessage();
             }
 
@@ -82,15 +79,6 @@ public class Menu {
 
         System.out.println(controller.getAllNewsBitcoin());
     }
-
-    private void printSourceMostArticles(AppController controller){
-        System.out.println(controller.printSourceMostArticles());
-    }
-    private void printAuthorLongestName(AppController controller){
-        System.out.println(controller.printAuthorLongestName());
-    }
-
-
 
     public static void printExitMessage(){
         System.out.println(EXIT_MESSAGE);

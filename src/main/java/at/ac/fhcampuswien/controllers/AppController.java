@@ -7,9 +7,7 @@ import at.ac.fhcampuswien.enums.Endpoint;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsResponse;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AppController {
     private List<Article> articles;
@@ -75,28 +73,7 @@ public class AppController {
         return new ArrayList<>();
     }
 
-    public String printSourceMostArticles(){
-        if(articles==null){
-            return "There were no articles found";
-        }else{
-            return articles
-                    .stream()
-                    .max(Comparator.comparing(article -> article.getSource().getName()))
-                    .get().getSource().getName();
-        }
-    }
-
-    public String printAuthorLongestName(){
-        if(articles==null){
-            return "There were no articles found";
-        }else{
-            return articles.stream()
-                    .max(Comparator.comparing(article -> article.getAuthor().length()))
-                    .get().getAuthor();
-        }
-    }
-
-       /**
+    /**
      * filters a given article list based on a query
      * @param query to filter by
      * @param articles  list to filter
