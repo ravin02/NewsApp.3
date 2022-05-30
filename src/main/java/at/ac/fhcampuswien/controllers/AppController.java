@@ -7,6 +7,7 @@ import at.ac.fhcampuswien.enums.Endpoint;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsResponse;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +57,26 @@ public class AppController {
             return response.getArticles();
         }
         return new ArrayList<>();
+    }
+    public String printSourceMostArticles(){
+        if(articles==null){
+            return "There were no articles found";
+        }else{
+            return articles
+                    .stream()
+                    .max(Comparator.comparing(article -> article.getSource().getName()))
+                    .get().getSource().getName();
+        }
+    }
+
+    public String printAuthorLongestName(){
+        if(articles==null){
+            return "There were no articles found";
+        }else{
+            return articles.stream()
+                    .max(Comparator.comparing(article -> article.getAuthor().length()))
+                    .get().getAuthor();
+        }
     }
 
     public int getNewYorkTimesArticleCount() {
