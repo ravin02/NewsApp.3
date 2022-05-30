@@ -34,6 +34,7 @@ public class Menu {
                 case "b" -> getAllNewsBitcoin(controller);
                 case "y" -> getArticleCount(controller);
                 case "q" -> printExitMessage();
+                case "m" -> getYourKeyword(controller);
                 case "h" -> downloadURLs();
                 case "c" -> printSourceMostArticles(controller);
                 case "d" -> printAuthorLongestName(controller);
@@ -48,6 +49,22 @@ public class Menu {
 
     }
 
+    private void getYourKeyword(AppController controller) throws NewsApiExceptions{
+
+        System.out.println("Choose your keyword!");
+        String input;
+        Scanner scanner = new Scanner(System.in);
+        input = scanner.next();
+
+        try {
+            System.out.println(controller.getYourKeyword(input));
+        } catch (NullPointerException e){
+            System.out.println("There are no articles... Search for another keyword!");
+        }
+
+    }
+
+
     // Method is needed for exercise 4 - ignore for exercise 2 solution
     private void downloadURLs(){
         int resultSequential = controller.downloadURLs(new SequentialDownloader());
@@ -60,28 +77,30 @@ public class Menu {
     }
 
     private void getArticleCount(AppController controller) throws NewsApiExceptions {
-        if(controller.getArticles() == null) {
-            throw new NewsApiExceptions("There are no articles yet! Search for some!");
-        }else
-        System.out.println("Number of articles: " + controller.getArticleCount());
+        try{
+            System.out.println("Number of articles: " + controller.getArticleCount());
+        }catch (NullPointerException e){
+            System.out.println("There are no articles!");
+        }
+
     }
 
     private void getTopHeadlinesAustria(AppController controller) throws NewsApiExceptions{
 
-        if(controller.getTopHeadlinesAustria() == null) {
-            throw new NewsApiExceptions("There are no Top-headlines in Austria");
-        }
-
-        List<Article> articleList = controller.getTopHeadlinesAustria();
-
-        for( Article a : articleList) {
-            System.out.println(a);
+        try {
+            System.out.println(controller.getTopHeadlinesAustria());
+        } catch (NullPointerException e) {
+            System.out.println("There are no top headlines in Austria!");
         }
     }
 
     private void getAllNewsBitcoin(AppController controller)  {
 
-        System.out.println(controller.getAllNewsBitcoin());
+        try{
+            System.out.println(controller.getAllNewsBitcoin());
+        }catch(NullPointerException e){
+            System.out.println("There are no bitcoin news!");
+        }
     }
 
     private void printSourceMostArticles(AppController controller){
@@ -117,6 +136,7 @@ public class Menu {
                 y: Get article count
                 q: Quit program
                 c: Get provider with most articles
+                m: Get articles via keyword
                 d: Get longest author name
                 e: Count articles from NY Times
                 f: Get articles with short title

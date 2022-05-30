@@ -79,6 +79,20 @@ public class AppController {
         }
     }
 
+    public List<Article> getYourKeyword(String input) {
+
+        NewsApi api = new NewsApi(input, Endpoint.EVERYTHING);
+        NewsResponse response = api.requestData();
+
+        if(response != null) {
+            articles = response.getArticles();
+            return response.getArticles();
+        }
+
+        return new ArrayList<>();
+    }
+
+
     public int getNewYorkTimesArticleCount() {
         if (articles == null) {
             return 0;
