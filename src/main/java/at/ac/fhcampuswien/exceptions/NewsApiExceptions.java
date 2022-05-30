@@ -7,7 +7,8 @@ public class NewsApiExceptions extends Exception{
         super(message);
     }
 
+    //Standard message
     public NewsApiExceptions() {
-        System.out.println("Something went wrong!!");
+        System.out.println("Something went wrong!");
     }
 }

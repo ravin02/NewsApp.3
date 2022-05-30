@@ -57,12 +57,13 @@ public class Menu {
 
     private void getArticleCount(AppController controller) throws NewsApiExceptions {
         if(controller.getArticles() == null) {
-            throw new NewsApiExceptions("There are no articles");
-        }
+            throw new NewsApiExceptions("There are no articles yet! Search for some!");
+        }else
         System.out.println("Number of articles: " + controller.getArticleCount());
     }
 
     private void getTopHeadlinesAustria(AppController controller) {
+
         List<Article> articleList = controller.getTopHeadlinesAustria();
 
         for( Article a : articleList) {
@@ -70,7 +71,8 @@ public class Menu {
         }
     }
 
-    private void getAllNewsBitcoin(AppController controller) {
+    private void getAllNewsBitcoin(AppController controller)  {
+
         System.out.println(controller.getAllNewsBitcoin());
     }
 
@@ -90,7 +92,7 @@ public class Menu {
                 Enter what you wanna do:
                 a: Get top headlines austria
                 b: Get all news about bitcoin
-                y: Count articles
+                y: Get article count
                 q: Quit program
                 c: Get provider with most articles
                 d: Get longest author name
